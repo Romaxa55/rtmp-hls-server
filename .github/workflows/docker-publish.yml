@@ -36,6 +36,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Unlock keychain (macOS only)
+        if: matrix.platform == 'linux/arm64'
+        run: security unlock-keychain -p ${{ secrets.KEYCHAIN_PASSWORD }} ${{ secrets.KEYCHAIN_PATH }}
+
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
