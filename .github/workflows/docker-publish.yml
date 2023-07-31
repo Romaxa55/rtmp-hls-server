@@ -21,9 +21,9 @@ jobs:
         platform: [ linux/amd64, linux/arm64 ]
         include:
           - platform: linux/amd64
-            runner: self-hosted-runner-amd64
+            runner: build-station
           - platform: linux/arm64
-            runner: self-hosted-runner-arm64
+            runner: MacBook-Pro-Roman-2
     runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
