@@ -36,10 +36,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Unlock keychain (macOS only)
-        if: matrix.platform == 'linux/arm64'
-        run: security unlock-keychain -p ${{ secrets.KEYCHAIN_PASSWORD }} ${{ secrets.KEYCHAIN_PATH }}
-
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
@@ -55,7 +51,7 @@ jobs:
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
       - name: Log into registry ${{ env.REGISTRY }}
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && matrix.platform == 'linux/amd64'
         uses: docker/login-action@v2.2.0
         with:
           registry: ${{ env.REGISTRY }}
